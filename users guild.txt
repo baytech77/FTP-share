@@ -1,0 +1,93 @@
+Step 1: Determine Your Local IP Address
+
+On Windows:
+1. Press `Win + R` to open the Run dialog.
+2. Type `cmd` and press Enter to open the Command Prompt.
+3. In the Command Prompt, type the following command and press Enter:
+   ```
+   ipconfig
+   ```
+4. Look for the section that says "Ethernet adapter" (for wired connections) or "Wireless LAN adapter" (for wireless connections). Find the line that says `IPv4 Address`. It will look something like `192.168.1.100`.
+
+ On Linux:
+1. Open a Terminal window.
+2. Type the following command and press Enter:
+   ```
+   hostname -I
+   ```
+3. This will display your local IP address, which will look similar to `192.168.1.100`.
+
+On macOS:
+1. Open a Terminal window.
+2. Type the following command and press Enter:
+   ```
+   ifconfig
+   ```
+3. Look for the `en0` or `en1` section (depending on whether you are using Ethernet or Wi-Fi). Find the line that says `inet`, which will show your local IP address.
+
+Step 2: Start the FTP Server
+
+1. Open your terminal or command prompt where the Python FTP server script is located.
+2. Run the Python script you created earlier (e.g., `ftp_server.py`) by typing:
+   ```
+   python ftp_server.py
+   ```
+3. Ensure that the server starts without errors. You should see a message indicating that the FTP server is running, e.g., `Starting FTP server on 0.0.0.0:2100`.
+
+Step 3: Access the FTP Server from Another Device
+
+On the Other Device:
+1. Make sure the device is connected to the same Wi-Fi network or Ethernet network as the server.
+2. Open an FTP client (like FileZilla) or a web browser.
+
+Using FileZilla (Recommended):
+1. **Download and Install FileZilla**:
+   - Go to [FileZilla's official website](https://filezilla-project.org/) and download the client version for your operating system.
+   - Install the application.
+
+2. **Open FileZilla**:
+   - Launch the FileZilla application.
+
+3. **Enter the FTP Server Details**:
+   - In the top bar, enter the following:
+     - **Host**: Your server's local IP address (e.g., `192.168.1.100`).
+     - **Username**: The username you registered (e.g., `user1`).
+     - **Password**: The password you set for that user.
+     - **Port**: `21` (default FTP port).
+
+4. **Click on Quickconnect**:
+   - Click the "Quickconnect" button to connect to the FTP server.
+
+5. **Navigate and Share Files**:
+   - Once connected, you can navigate through the directories on the server and upload or download files by dragging and dropping them.
+
+Using a Web Browser (Less Recommended):
+1. Open a web browser (like Chrome, Firefox, etc.).
+2. In the address bar, type the following:
+   ```
+   ftp://192.168.1.100
+   ```
+   Replace `192.168.1.100` with your server's local IP address.
+3. Press Enter. You may be prompted to enter your username and password.
+4. After logging in, you can view the files and folders on the server.
+
+Step 4: Verify Firewall Settings (If Necessary)
+
+If you have trouble connecting, ensure that your firewall allows incoming connections on port 21. Here’s how to check:
+
+ On Windows:
+1. Go to Control Panel > System and Security > Windows Defender Firewall.
+2. Click on "Allow an app or feature through Windows Defender Firewall."
+3. Click on "Change settings" and then "Allow another app."
+4. Browse for your Python executable or the FTP server application and add it.
+5. Ensure that both "Private" and "Public" checkboxes are checked.
+
+ On Linux:
+You may need to adjust your firewall settings using `iptables` or `ufw`. For example, to allow FTP connections using `ufw`, run:
+```
+sudo ufw allow 21/tcp
+```
+
+Conclusion
+
+By following these steps, you should be able to access your Python FTP server from another device on the same network. Users can now upload and share files as needed. If you encounter any issues, double-check the IP addresses, firewall settings, and ensure that the FTP server is running correctly.
